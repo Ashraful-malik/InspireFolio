@@ -1,7 +1,7 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { deletePost, getIndividualPost } from "../../../services/postService";
-
 import { use } from "react";
 import Container from "../../../components/Container";
 import Link from "next/link";
@@ -9,8 +9,9 @@ import { checkAuth } from "../../../services/authServices";
 import TopLoadingBar from "../../../components/ui/TopLoader";
 import { useRouter } from "next/navigation";
 import Button from "../../../components/ui/Button";
+import Image from "next/image";
 
-function page({ params }) {
+function Page({ params }) {
   const { id } = use(params);
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -55,6 +56,7 @@ function page({ params }) {
     };
     checkUserAuth();
   }, [id]);
+
   if (loading) return <TopLoadingBar />;
   if (!post)
     return <p className="text-center text-gray-300 text-2xl">Post not found</p>;
@@ -63,10 +65,14 @@ function page({ params }) {
     <Container>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 my-20 ">
         <div className=" lg:col-span-2 lg:col-start-1">
-          <img
+          <Image
             src={post.imageUrl}
             alt={post.description}
             className="w-full rounded-lg shadow-md"
+            width={1000}
+            height={1000}
+            layout="responsive"
+            loading="lazy"
           />
         </div>
         <div className="rounded-lg ">
@@ -123,4 +129,4 @@ function page({ params }) {
   );
 }
 
-export default page;
+export default Page;

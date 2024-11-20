@@ -3,6 +3,7 @@ import Button from "./Button";
 import ProfileDialogBox from "./ProfileDialog";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 
 function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,7 +19,12 @@ function Navbar() {
         {/* Left Section */}
         <div className="text-white text-lg font-bold ">
           <Link href="/">
-            <img src="inspirefolio-logo.png" alt="logo" className="w-28 " />
+            <Image
+              src="/inspirefolio-logo.png"
+              alt="logo"
+              width={120}
+              height={120}
+            />
           </Link>
         </div>
 

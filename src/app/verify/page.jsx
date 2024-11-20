@@ -13,7 +13,7 @@ const VerifyEmail = () => {
   const router = useRouter();
 
   useEffect(() => {
-    const verifyUser = async () => {
+    const VerifyUser = async () => {
       if (userId && secret) {
         try {
           const response = await account.updateVerification(userId, secret);
@@ -31,8 +31,8 @@ const VerifyEmail = () => {
       }
     };
 
-    verifyUser();
-  }, [userId, secret]);
+    VerifyUser();
+  }, [userId, secret, router]);
 
   return (
     <>

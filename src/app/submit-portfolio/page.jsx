@@ -146,7 +146,7 @@ function SubmitPortfolio() {
       fetchIndividualPost();
     }
     checkUserAuth();
-  }, []);
+  }, [id, router]);
 
   // -------------------------------for future version-------------------
 

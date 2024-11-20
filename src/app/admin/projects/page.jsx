@@ -12,7 +12,7 @@ import TopLoadingBar from "../../../components/ui/TopLoader";
 import Button from "../../../components/ui/Button";
 import { deleteImage } from "../../../services/cloudinaryImageUplod";
 
-function adminProjects() {
+function AdminProjects() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState(null); // State to manage toast
@@ -27,7 +27,6 @@ function adminProjects() {
         ...post,
       }));
       setPosts(postsWithIds);
-
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -126,4 +125,4 @@ function adminProjects() {
   );
 }
 
-export default adminProjects;
+export default AdminProjects;

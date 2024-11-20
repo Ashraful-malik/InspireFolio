@@ -5,6 +5,7 @@ import { getApprovePost } from "../services/postService";
 import TopLoadingBar from "../components/ui/TopLoader";
 import { useRouter } from "next/navigation";
 import Button from "./ui/Button";
+import Image from "next/image";
 function PortfolioCard() {
   const [cursor, setCursor] = useState(null); // Cursor for pagination
   const [portfolio, setPortfolio] = useState([]);
@@ -45,7 +46,7 @@ function PortfolioCard() {
     <>
       {isLoading && <TopLoadingBar />}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-auto  ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-auto mb-4 ">
         {error && <p className="col-span-full text-red-500">{error}</p>}
         {portfolio.length === 0 && !isLoading && !error && (
           <p className="col-span-full">No portfolio items available.</p>
@@ -53,15 +54,20 @@ function PortfolioCard() {
         {portfolio.map((item) => (
           <div
             key={item.$id}
-            className="overflow-hidden rounded-lg p-1 dark:bg-dark-overlay cursor-pointer border dark:border-dark-border"
+            className=" relative w-full h-80 overflow-hidden rounded-lg p-1 dark:bg-dark-overlay cursor-pointer border dark:border-dark-border"
             onClick={() => {
               router.push(`/view/${item.$id}`);
             }}
           >
-            <img
-              src={item.imageUrl}
-              alt="portfolio image"
-              className="w-full h-80 object-cover object-top rounded-lg"
+            <Image
+              src={item.imageUrl} // URL to the image
+              alt="Portfolio image"
+              width={600} // Define width to maintain aspect ratio
+              height={400}
+              className="object-cover object-top rounded-lg"
+              quality={75} // Set image quality (adjust this value based on your needs)
+              loading="lazy" // Lazy loading for offscreen images
+              priority={false} // Set to true for important images (above the fold)
             />
           </div>
         ))}

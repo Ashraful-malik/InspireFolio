@@ -28,7 +28,7 @@ function DialogBox({
       if (onClose) onClose();
     }, timeout);
     return () => clearTimeout(timer);
-  }, [timeout]);
+  }, [timeout, onClose]);
 
   // Return null if dialog is closed
   if (!isVisible) return null;

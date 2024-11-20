@@ -6,7 +6,7 @@ import { useState } from "react";
 import { logoutUser, userAvatar } from "../../services/authServices";
 import { useRouter } from "next/navigation";
 
-function profileDialogBox() {
+function ProfileDialogBox() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [avatar, setAvatar] = useState("");
   const { user, setUser } = useAuth();
@@ -18,7 +18,7 @@ function profileDialogBox() {
 
   const logout = async () => {
     try {
-      const response = await logoutUser();
+      await logoutUser();
       setUser(null);
 
       router.push("/login");
@@ -82,4 +82,4 @@ function profileDialogBox() {
   );
 }
 
-export default profileDialogBox;
+export default ProfileDialogBox;
