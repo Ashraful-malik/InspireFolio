@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "./ui/InputField";
 import TextArea from "./ui/TextArea";
 import SelectInput from "./ui/SelectInput";
@@ -6,13 +6,25 @@ import Button from "./ui/Button";
 
 export default function DetailsStep({ onSubmit, editValues }) {
   const [formValues, setFormValues] = useState({
-    email: "" || editValues.email === null ? "" : editValues.email,
-    description: "" || editValues.description,
-    url: "" || editValues.websiteUrl || editValues.url,
-    category: "" || editValues.category,
-    imageUrl: "" || editValues.imageUrl,
-    public_id: editValues.publicId,
+    email: "",
+    description: "",
+    url: "",
+    category: "",
+    imageUrl: "",
+    public_id: "",
   });
+
+  // Sync formValues with editValues when editValues changes
+  useEffect(() => {
+    setFormValues({
+      email: editValues.email || "",
+      description: editValues.description || "",
+      url: editValues.websiteUrl || editValues.url || "",
+      category: editValues.category || "",
+      imageUrl: editValues.imageUrl || "",
+      public_id: editValues.publicId || "",
+    });
+  }, [editValues]); // Runs whenever editValues changes
 
   // Capture form input changes
   const handleChange = (e) => {
@@ -24,7 +36,6 @@ export default function DetailsStep({ onSubmit, editValues }) {
   };
 
   const handleSubmit = (e) => {
-    console.log("Form values===>", formValues);
     e.preventDefault(); // Prevent traditional form submission
     onSubmit(formValues); // Pass formValues to parent component's onSubmit
   };

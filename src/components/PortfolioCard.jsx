@@ -2,20 +2,30 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getApprovePost } from "../services/postService";
-import SpinLoader from "../components/ui/SpinLoader";
+import TopLoadingBar from "../components/ui/TopLoader";
 import { useRouter } from "next/navigation";
-function PortfolioCard({ alert = "portfolio image" }) {
+import Button from "./ui/Button";
+function PortfolioCard() {
+  const [cursor, setCursor] = useState(null); // Cursor for pagination
   const [portfolio, setPortfolio] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [error, setError] = useState(null);
   const router = useRouter();
+
   const fetchPortfolios = async () => {
+    if (isLoading || !hasMore || (cursor === null && portfolio.length > 0))
+      return; // Prevent invalid fetch
     setIsLoading(true);
     setError(null);
     try {
-      const result = await getApprovePost();
-      setPortfolio(result.documents || []);
-      setIsLoading(false);
+      const response = await getApprovePost(cursor, 10);
+      const newPosts = response.documents;
+      setPortfolio((prev) =>
+        cursor === null ? newPosts : [...prev, ...newPosts]
+      ); // Avoid duplication
+      setCursor(newPosts[newPosts.length - 1]?.$id || null);
+      setHasMore(newPosts.length === 10);
     } catch (error) {
       setError("Failed to load portfolio items.");
       console.error("Fetch error:", error);
@@ -25,13 +35,17 @@ function PortfolioCard({ alert = "portfolio image" }) {
   };
 
   useEffect(() => {
-    fetchPortfolios();
-  }, []);
+    setPortfolio([]); // Clear portfolio
+    setCursor(null); // Reset cursor
+    setHasMore(true); // Reset pagination status
+    fetchPortfolios(); // Fetch new portfolio items
+  }, [router.asPath]);
 
   return (
     <>
-      {isLoading && <SpinLoader />}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-auto">
+      {isLoading && <TopLoadingBar />}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-auto  ">
         {error && <p className="col-span-full text-red-500">{error}</p>}
         {portfolio.length === 0 && !isLoading && !error && (
           <p className="col-span-full">No portfolio items available.</p>
@@ -39,18 +53,28 @@ function PortfolioCard({ alert = "portfolio image" }) {
         {portfolio.map((item) => (
           <div
             key={item.$id}
-            className="overflow-hidden rounded-lg shadow-lg p-2 dark:bg-dark-surface cursor-pointer"
+            className="overflow-hidden rounded-lg p-1 dark:bg-dark-overlay cursor-pointer border dark:border-dark-border"
             onClick={() => {
               router.push(`/view/${item.$id}`);
             }}
           >
             <img
               src={item.imageUrl}
-              alt={alert || item.category}
+              alt="portfolio image"
               className="w-full h-80 object-cover object-top rounded-lg"
             />
           </div>
         ))}
+        <div className="flex  item-center justify-center ">
+          {hasMore && !isLoading && (
+            <Button
+              label="Load more"
+              onClick={fetchPortfolios}
+              type="button"
+              style="primary"
+            />
+          )}
+        </div>
       </div>
     </>
   );

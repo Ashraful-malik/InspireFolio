@@ -21,7 +21,6 @@ function Login() {
     e.preventDefault();
     setLoading(true);
     setError(null);
-    console.log(e.target);
 
     const formData = new FormData(e.target);
     const email = formData.get("email");
@@ -35,10 +34,12 @@ function Login() {
       if (response) {
         setUser(getLoggedInUser);
         // Send email verification if not verified
-        if (!getLoggedInUser.emailVerification) {
-          const verifyEmail = await sendEmailVerification();
-          console.log("Email sent for verification", verifyEmail);
-        }
+
+        // -------------------------------------------------------
+        // if (!getLoggedInUser.emailVerification) {
+        //   const verifyEmail = await sendEmailVerification();
+        //   // console.log("Email sent for verification", verifyEmail);
+        // }
         router.push("/submit-portfolio"); // Redirect after setting user
       }
     } catch (error) {
@@ -71,9 +72,13 @@ function Login() {
   ];
   return (
     <>
-      <div className="flex items-center justify-center w-full min-h-screen ">
+      <div className="fixed top-4 left-4 p-">
+        <Button label="Back" style="dark" onClick={() => router.back()} />
+      </div>
+      <div className="flex items-center justify-center w-full min-h-screen px-2">
         {loading && <TopLoadingBar />}
-        <div className="max-w-md w-full dark:bg-dark-surface shadow-md rounded-lg p-8 relative border dark:border-dark-border">
+
+        <div className="max-w-md  w-full dark:bg-dark-surface shadow-md rounded-lg p-8 relative border dark:border-dark-border">
           <h2 className="text-3xl font-bold text-white dark:text-dark-textPrimary pb-8">
             Login
           </h2>

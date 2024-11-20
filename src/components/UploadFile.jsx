@@ -16,7 +16,6 @@ function Page({ fileData }) {
       const result = await axios.post("/api/upload", formData);
       if (result.data.url) {
         setUploadStatus("Upload successful!");
-        console.log("File URL:", result.data.url);
         fileData(result.data);
       } else {
         setUploadStatus("Upload failed. Please try again.");

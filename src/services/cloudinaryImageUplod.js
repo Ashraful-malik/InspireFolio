@@ -7,7 +7,6 @@ export const uploadImage = async (file) => {
 
   try {
     const result = await axios.post("/api/upload", formData);
-    console.log("result==>", result);
 
     if (result.data.url) {
       return result;
@@ -26,14 +25,10 @@ export const uploadImage = async (file) => {
 
 export const deleteImage = async (publicId) => {
   try {
-    console.log("publicId From delete image coudinary==>", publicId);
-
     const response = await axios.post(`/api/delete`, { publicId });
     if (response.status === 200) {
-      console.log("Response data:", response.data.message);
       return response;
     } else {
-      console.log(response.data.error);
     }
   } catch (error) {
     throw error;

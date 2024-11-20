@@ -26,22 +26,17 @@ function adminProjects() {
       const postsWithIds = response.documents.map((post) => ({
         ...post,
       }));
-      console.log("Posts fetched successfully==>", postsWithIds);
-
       setPosts(postsWithIds);
 
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      console.log("error while fetching posts", error);
       throw error;
     }
   };
   const handleApprove = async (id) => {
-    console.log("approve", id);
     try {
       const response = await approvePost(id);
-      console.log("Project approved response==>", response);
       setPosts((prevPosts) => prevPosts.filter((post) => post.$id !== id));
     } catch (error) {
       console.error("Error approving project:", error);
@@ -50,7 +45,6 @@ function adminProjects() {
   const deletePostHandler = async (id, publicId) => {
     try {
       await deletePost(id);
-      console.log("Project public id ====>", publicId);
       setPosts((prevPosts) => prevPosts.filter((post) => post.$id !== id));
       const deleteResponse = await deleteImage(publicId);
 
@@ -64,18 +58,18 @@ function adminProjects() {
       console.error("Error deleting project:", error);
     }
   };
+  const checkUserAuth = async () => {
+    const userData = await checkAuth();
 
+    if (!userData || !userData.isAdmin) {
+      router.push("/");
+      return;
+    } else {
+      setUser(userData); // Set user if authenticated
+      fetchPosts(); // Fetch posts only if the user is authenticated
+    }
+  };
   useEffect(() => {
-    const checkUserAuth = async () => {
-      const userData = await checkAuth();
-      fetchPosts();
-      if (!userData?.isAdmin) {
-        router.push("/");
-      } else {
-        setUser(userData); // Set user if authenticated
-        fetchPosts(); // Fetch posts only if the user is authenticated
-      }
-    };
     checkUserAuth();
   }, []);
   return (

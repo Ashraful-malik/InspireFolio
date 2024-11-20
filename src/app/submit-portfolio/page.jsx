@@ -26,12 +26,10 @@ function SubmitPortfolio() {
 
   // Wrap handleNext to avoid multiple calls
   const handleNext = () => {
-    console.log("Moving to next step from step:", step);
     setStep((prevStep) => prevStep + 1);
   };
 
   const handleBack = () => {
-    console.log("Moving to previous step from step:", step);
     setStep((prevStep) => prevStep - 1);
   };
 
@@ -43,7 +41,6 @@ function SubmitPortfolio() {
       (values.email === "" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email))
     ) {
       setError(null); // Clear any previous errors
-      console.log("Form Values from DetailsStep:", values);
       setFormValues(values);
       handleNext(); // Move to the file upload step
     } else {
@@ -55,7 +52,6 @@ function SubmitPortfolio() {
 
   const handleFileChange = async (uploadedFile) => {
     setImageLoader(true);
-    console.log("Uploaded File:", uploadedFile);
 
     if (uploadedFile.size > 5 * 1024 * 1024) {
       setError("File size must be less than 5MB.");
@@ -69,7 +65,6 @@ function SubmitPortfolio() {
       const response = await uploadImage(uploadedFile);
       setImageLoader(false);
       setError(response.data.error);
-      console.log("Cloudinary Response:", response);
       setFile({
         imageUrl: response.data.url,
         status: response.status,
@@ -78,7 +73,6 @@ function SubmitPortfolio() {
       });
     } catch (error) {
       setImageLoader(false);
-      console.log("Error uploading file:", error);
       setError("error uploading file" || error.message);
       return;
     } finally {
@@ -94,9 +88,6 @@ function SubmitPortfolio() {
     setError(null);
   };
   const handleFinalSubmit = async () => {
-    console.log("Final Submit:", formValues);
-    console.log("file for ============>", formValues);
-
     if (!formValues && !file.imageUrl) {
       setError("Please upload a file.");
       return;
@@ -120,7 +111,6 @@ function SubmitPortfolio() {
     } catch (error) {
       setLoader(false);
       setIsPostSuccessful(false);
-      console.log("Error creating post:", error);
       setError("Error creating post" || error.message);
     } finally {
       setLoader(false);
@@ -131,11 +121,9 @@ function SubmitPortfolio() {
   const fetchIndividualPost = async () => {
     try {
       const response = await getIndividualPost(id);
-      console.log("Project fetched successfully==>", response);
 
       setFormValues(response);
     } catch (error) {
-      console.log("error while fetching posts", error);
       setError("error while fetching posts" || error.message);
       throw error;
     }
@@ -146,7 +134,7 @@ function SubmitPortfolio() {
       const user = await checkAuth();
       setAuthUser(user);
 
-      // ----------We are allowing user to submit portfolio without email verification for now---------------
+      // ----------in future version---------------
 
       // if (!user.emailVerification) {
       //   setTimeout(() => {
@@ -160,7 +148,7 @@ function SubmitPortfolio() {
     checkUserAuth();
   }, []);
 
-  // -------------------------------for future use-------------------
+  // -------------------------------for future version-------------------
 
   // if (!authUser?.emailVerification) {
   //   return (
@@ -171,7 +159,7 @@ function SubmitPortfolio() {
   //   );
   // }
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center px-4 mt-8">
       {loader && <TopLoadingBar />}
       {isPostSuccessful && (
         <DialogBox
@@ -198,7 +186,7 @@ function SubmitPortfolio() {
             onSubmit={handleFinalSubmit}
             // Final submit callback
             loader={imageLoader}
-            uploadedFile={file}
+            uploadImage={file}
             // Pass the uploaded file
             editValues={formValues}
           />

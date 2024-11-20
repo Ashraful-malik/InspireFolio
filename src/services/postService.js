@@ -1,7 +1,6 @@
 import { ID, Permission, Query, Role } from "appwrite";
 import { env } from "../env";
 import { databases, account } from "../lib/appwrite";
-import { deleteImage } from "./cloudinaryImageUplod";
 export const createPost = async (
   email,
   description,
@@ -36,11 +35,8 @@ export const createPost = async (
       ]
     );
 
-    console.log("Project submitted successfully==>", response);
-
     return response;
   } catch (error) {
-    console.log("Error while creating project", error);
     throw error;
   }
 };
@@ -52,28 +48,33 @@ export const getUnapprovedPosts = async () => {
       env.appwriteCollectionId,
       [Query.equal("approved", false), Query.orderDesc("createdAt")] // { filters: ["approved: true"] }
     );
-    console.log("Posts fetched successfully==>", response);
     return response;
   } catch (error) {
-    console.log("error while fetching posts", error);
     throw error;
   }
 };
 
-export const getApprovePost = async () => {
+export const getApprovePost = async (cursor = null, limit = 10) => {
   try {
+    const queries = [Query.equal("approved", true), Query.limit(limit)];
+
+    // If a cursor is provided, add cursorAfter for pagination
+    if (cursor) {
+      queries.push(Query.cursorAfter(cursor));
+    }
+
     const response = await databases.listDocuments(
       env.appwriteDatabaseId,
       env.appwriteCollectionId,
-      [Query.equal("approved", true)] // { filters: ["approved: true"] }
+      queries
     );
-    console.log("Posts fetched successfully==>", response);
+
     return response;
   } catch (error) {
-    console.log("error while fetching posts", error);
     throw error;
   }
 };
+
 export const approvePost = async (id) => {
   try {
     const response = await databases.updateDocument(
@@ -82,10 +83,8 @@ export const approvePost = async (id) => {
       id,
       { approved: true }
     );
-    console.log("Project approved successfully==>", response);
     return response;
   } catch (error) {
-    console.log("Error while approving project", error);
     throw error;
   }
 };
@@ -96,10 +95,8 @@ export const getIndividualPost = async (id) => {
       env.appwriteCollectionId,
       id
     );
-    console.log("Project fetched successfully==>", response);
     return response;
   } catch (error) {
-    console.log("Error while fetching project", error);
     throw error;
   }
 };
@@ -110,11 +107,8 @@ export const deletePost = async (id) => {
       env.appwriteCollectionId,
       id
     );
-    // const result = await deleteImage(response.publicId);
-    console.log("Project deleted successfully==>", response);
     return response;
   } catch (error) {
-    console.log("Error while deleting project", error);
     throw error;
   }
 };

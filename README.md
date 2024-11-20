@@ -36,3 +36,6 @@ The following environment variables are required:
 - `CLOUDINARY_API_SECRET`
 
 See `.env.example` for an example of the format.
+Here's a short introduction you can use for your GitHub repository:
+
+# Portfolio Showcase

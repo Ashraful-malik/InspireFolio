@@ -3,7 +3,6 @@ import cloudinary from "../../../../lib/cloudinary";
 export async function POST(request) {
   try {
     const { publicId } = await request.json();
-    console.log("publicId From delete router==>", publicId);
 
     if (!publicId) {
       return NextResponse.json(

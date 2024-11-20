@@ -29,7 +29,6 @@ function Signup() {
       }
     } catch (error) {
       setError(error?.message);
-      console.log("Error from signup", error.message); // Check if error object from Appwrite SDK has `message`
     }
   };
   useEffect(() => {
@@ -60,7 +59,10 @@ function Signup() {
   ];
   return (
     <>
-      <div className="flex items-center justify-center w-full min-h-screen">
+      <div className="fixed top-4 left-4">
+        <Button label="Back" style="dark" onClick={() => router.back()} />
+      </div>
+      <div className="flex items-center justify-center w-full min-h-screen px-2">
         {loading && <TopLoadingBar />}
         <div className="max-w-md w-full dark:bg-dark-surface shadow-md rounded-lg p-8 relative border dark:border-dark-border">
           <h2 className="text-3xl font-bold text-white dark:text-dark-textPrimary pb-8">

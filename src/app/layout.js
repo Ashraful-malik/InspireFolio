@@ -17,7 +17,8 @@ export default function RootLayout({ children }) {
     <AuthProvider>
       <html lang="en" className={`${inter.variable} dark `}>
         <body className="bg-white dark:bg-dark-bg dark:text-dark-textPrimary">
-          {pathname !== "/login" && pathname !== "/signup" && <Navbar />}
+          {/* {pathname !== "/login" && pathname !== "/signup" && <Navbar />} */}
+          <Navbar />
           <main>{children}</main>
         </body>
       </html>

@@ -1,12 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  deletePost,
-  getAllPosts,
-  getIndividualPost,
-} from "../../../services/postService";
-import { databases } from "../../../lib/appwrite";
-import { env } from "../../../env";
+import { deletePost, getIndividualPost } from "../../../services/postService";
+
 import { use } from "react";
 import Container from "../../../components/Container";
 import Link from "next/link";
@@ -28,6 +23,7 @@ function page({ params }) {
       setPost(response);
       setLoading(false);
     } catch (error) {
+      setLoading(false);
       console.log("error while fetching posts", error);
       throw error;
     }
@@ -49,11 +45,13 @@ function page({ params }) {
     const checkUserAuth = async () => {
       const userData = await checkAuth();
       setUser(userData);
-      if (!userData) {
-        router.push("/");
-      } else {
-        fetchPosts();
-      }
+      fetchPosts();
+
+      // if (!userData) {
+      //   router.push("/");
+      // } else {
+      //   fetchPosts();
+      // }
     };
     checkUserAuth();
   }, [id]);
@@ -63,8 +61,8 @@ function page({ params }) {
 
   return (
     <Container>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-20 ">
-        <div className="lg:col-span-2 lg:col-start-1">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 my-20 ">
+        <div className=" lg:col-span-2 lg:col-start-1">
           <img
             src={post.imageUrl}
             alt={post.description}
@@ -98,7 +96,7 @@ function page({ params }) {
             </span>
 
             <div className="action flex  items-center space-x-2">
-              {(user.$id === post.userId || user.isAdmin) && (
+              {(user?.$id === post.userId || user?.isAdmin) && (
                 <>
                   <Link
                     href={`/submit-portfolio?id=${id}`}

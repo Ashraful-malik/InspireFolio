@@ -20,11 +20,10 @@ function profileDialogBox() {
     try {
       const response = await logoutUser();
       setUser(null);
-      console.log(response);
 
       router.push("/login");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   useEffect(() => {
@@ -32,9 +31,8 @@ function profileDialogBox() {
       try {
         const profilePic = await userAvatar();
         setAvatar(profilePic);
-        console.log(profilePic);
       } catch (error) {
-        console.log(error);
+        return error;
       }
     };
     getUserAvatar();
@@ -59,11 +57,15 @@ function profileDialogBox() {
       </div>
       {/* profile dialog box */}
       {isDialogOpen && user && (
-        <div className="max-w-64 rounded overflow-hidden shadow-lg bg-white absolute right-2 top-16 text-left">
+        <div className="max-w-64 rounded overflow-hidden shadow-lg bg-white absolute right-2 top-16 text-left dark:bg-dark-surface">
           <div className="px-6 ">
             <div className="py-4">
-              <div className="font-bold text-xl   text-black">{user?.name}</div>
-              <p className="text-gray-700 text-base">{user?.email}</p>
+              <div className="font-bold text-xl text-black dark:text-dark-textSecondary">
+                {user?.name}
+              </div>
+              <p className="text-gray-700 text-base dark:text-dark-textSecondary">
+                {user?.email}
+              </p>
             </div>
             <div className="pb-2">
               <Button

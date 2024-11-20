@@ -13,7 +13,6 @@ export const AuthProvider = ({ children }) => {
     const fetchUser = async () => {
       try {
         const userData = await checkAuth();
-        console.log("userData==>", userData);
         setUser(userData);
       } catch {
         setUser(null); // User is not authenticated

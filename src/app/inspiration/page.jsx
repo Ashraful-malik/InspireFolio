@@ -1,14 +1,13 @@
 import React from "react";
 import Container from "../../components/Container";
 import PortfolioCard from "../../components/PortfolioCard";
+import BackToTop from "../../components/ui/BackToTop";
 
 function page() {
   return (
     <div>
       <Container>
-        <div>
-          <h1>Inspiration</h1>
-        </div>
+        <BackToTop />
         <div className="mt-12">
           <PortfolioCard />
         </div>

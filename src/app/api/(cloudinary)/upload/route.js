@@ -4,7 +4,6 @@ import cloudinary from "../../../../lib/cloudinary";
 export async function POST(request) {
   try {
     const data = await request.formData();
-    console.log("Frontend data==>", data);
     const file = data.get("file");
 
     if (!file) {

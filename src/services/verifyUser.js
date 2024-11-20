@@ -7,7 +7,6 @@ export const sendEmailVerification = async () => {
     const response = await account.createVerification(redirectUrl);
     return response;
   } catch (error) {
-    console.log("Error while sending verification email", error);
     throw error;
   }
 };
