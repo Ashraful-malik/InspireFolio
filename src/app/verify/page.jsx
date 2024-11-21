@@ -1,6 +1,6 @@
 "use client";
-import { useRouter, useSearchParams, Suspense } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { account } from "../index";
 import SpinLoader from "../../components/ui/SpinLoader";
 const VerifyEmail = () => {
