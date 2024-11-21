@@ -43,7 +43,13 @@ function ProfileDialogBox() {
       <div className="flex items-center ">
         {user ? (
           <div className="relative cursor-pointer" onClick={toggleDialog}>
-            <img className="w-10 h-10 rounded-full" src={avatar} alt="Avatar" />
+            {avatar && (
+              <img
+                className="w-10 h-10 rounded-full"
+                src={avatar}
+                alt="Avatar"
+              />
+            )}
           </div>
         ) : (
           <Button

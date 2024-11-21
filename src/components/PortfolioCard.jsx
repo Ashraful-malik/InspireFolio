@@ -66,8 +66,7 @@ function PortfolioCard() {
               height={400}
               className="object-cover object-top rounded-lg"
               quality={75} // Set image quality (adjust this value based on your needs)
-              loading="lazy" // Lazy loading for offscreen images
-              priority={false} // Set to true for important images (above the fold)
+              priority={true}
             />
           </div>
         ))}

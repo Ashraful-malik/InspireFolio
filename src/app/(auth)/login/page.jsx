@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import {
   useAuth,
@@ -11,11 +11,14 @@ import Link from "next/link";
 import InputField from "../../../components/ui/InputField";
 import Button from "../../../components/ui/Button";
 import TopLoadingBar from "../../../components/ui/TopLoader";
+import Toast from "../../../components/ui/Toast";
 function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const router = useRouter();
+  const searchParams = useSearchParams(); // Hook to get query parameters
   const { user, setUser } = useAuth();
+  const [showBanner, setShowBanner] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,11 +31,10 @@ function Login() {
 
     try {
       const response = await loginUser(email, password);
-
       const getLoggedInUser = await checkAuth();
-
       if (response) {
         setUser(getLoggedInUser);
+        router.push("/submit-portfolio"); // Redirect after setting user
         // Send email verification if not verified
 
         // -------------------------------------------------------
@@ -40,7 +42,6 @@ function Login() {
         //   const verifyEmail = await sendEmailVerification();
         //   // console.log("Email sent for verification", verifyEmail);
         // }
-        router.push("/submit-portfolio"); // Redirect after setting user
       }
     } catch (error) {
       console.error("Login error:", error.message);
@@ -51,10 +52,16 @@ function Login() {
   };
 
   useEffect(() => {
+    const reason = searchParams.get("reason");
+    if (reason === "auth-required") {
+      setShowBanner(true); // Show the banner if the reason is 'auth-required'
+    }
+    console.log(reason);
+
     if (user) {
       router.push("/");
     }
-  }, [user, router]);
+  }, [user, router, searchParams]);
 
   const fields = [
     {
@@ -70,8 +77,16 @@ function Login() {
       required: true,
     },
   ];
+
   return (
     <>
+      {showBanner && (
+        <Toast
+          variant="warning"
+          message="You need to log in to submit a portfolio."
+          onClose={() => setShowBanner(false)} // Optional: Allow the banner to be dismissed
+        />
+      )}
       <div className="fixed top-4 left-4 p-">
         <Button label="Back" style="dark" onClick={() => router.back()} />
       </div>

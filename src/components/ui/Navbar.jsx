@@ -17,13 +17,14 @@ function Navbar() {
     <nav className="py-4">
       <div className="flex items-center justify-between max-w-7xl mx-auto px-4 ">
         {/* Left Section */}
-        <div className="text-white text-lg font-bold ">
+        <div className="text-white text-lg fopnt-bold w-auto h-auto">
           <Link href="/">
             <Image
               src="/inspirefolio-logo.png"
               alt="logo"
               width={120}
               height={120}
+              className="w-auto h-auto"
             />
           </Link>
         </div>

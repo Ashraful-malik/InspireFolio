@@ -68,7 +68,7 @@ export default function DetailsStep({ onSubmit, editValues }) {
           type="url"
           value={formValues.url}
           onChange={handleChange}
-          placeholder="https://example.com"
+          placeholder="website url"
           required={true}
           className="bg-gray-100 dark:bg-dark-input rounded-lg p-2"
         />
@@ -78,6 +78,8 @@ export default function DetailsStep({ onSubmit, editValues }) {
           onChange={handleChange}
           required={true}
           options={[
+            { value: "", label: "Select Category" },
+
             { value: "web-development", label: "Web Development" },
             {
               value: "full-stack-development",
