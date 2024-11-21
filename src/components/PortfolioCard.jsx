@@ -46,7 +46,7 @@ function PortfolioCard() {
     <>
       {isLoading && <TopLoadingBar />}
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-auto mb-4 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mx-auto  ">
         {error && <p className="col-span-full text-red-500">{error}</p>}
         {portfolio.length === 0 && !isLoading && !error && (
           <p className="col-span-full">No portfolio items available.</p>

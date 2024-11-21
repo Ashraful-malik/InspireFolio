@@ -3,6 +3,7 @@ import { AuthProvider } from "../context/authContext";
 import { Inter } from "next/font/google";
 import RenderNavbar from "../components/RenderNavbar";
 import Footer from "../components/Footer";
+import { GoogleAnalytics } from "@next/third-parties/google";
 export const metadata = {
   title: "InspireFolio",
   description:
@@ -51,6 +52,7 @@ export default function RootLayout({ children }) {
           <main>{children}</main>
           <Footer />
         </body>
+        <GoogleAnalytics gaId="G-NZHSLP5K8Q" />
       </html>
     </AuthProvider>
   );

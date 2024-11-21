@@ -10,7 +10,7 @@ const Home = () => {
       <Container>
         <BackToTop />
         <HeroSection />
-        <div>
+        <div className="mb-9">
           <PortfolioCard />
         </div>
       </Container>
