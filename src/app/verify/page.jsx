@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams, Suspense } from "next/navigation";
 import { useEffect, useState } from "react";
 import { account } from "../index";
 import SpinLoader from "../../components/ui/SpinLoader";
@@ -61,4 +61,10 @@ const VerifyEmail = () => {
   );
 };
 
-export default VerifyEmail;
+export default function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyEmail />
+    </Suspense>
+  );
+}

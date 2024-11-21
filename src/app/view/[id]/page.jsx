@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
 import { deletePost, getIndividualPost } from "../../../services/postService";
 import { use } from "react";
