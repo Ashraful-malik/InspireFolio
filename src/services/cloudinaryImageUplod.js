@@ -7,7 +7,6 @@ export const uploadImage = async (file) => {
 
   try {
     const result = await axios.post("/api/upload", formData);
-
     if (result.data.url) {
       return result;
     } else {

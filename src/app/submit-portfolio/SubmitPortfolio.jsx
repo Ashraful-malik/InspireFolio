@@ -72,6 +72,7 @@ function SubmitPortfolio() {
         statusText: response.statusText,
       });
     } catch (error) {
+      console.log(error);
       setImageLoader(false);
       setError("error uploading file" || error.message);
       return;
