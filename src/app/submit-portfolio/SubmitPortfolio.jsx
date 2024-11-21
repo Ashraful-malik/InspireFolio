@@ -88,8 +88,6 @@ function SubmitPortfolio() {
     setError(null);
   };
   const handleFinalSubmit = async () => {
-    console.log("formValues", formValues);
-
     if (!formValues && !file.imageUrl) {
       setError("Please upload a file.");
       return;
@@ -113,8 +111,6 @@ function SubmitPortfolio() {
     } catch (error) {
       setLoader(false);
       setIsPostSuccessful(false);
-      console.log(error);
-
       setError("Error creating post" || error.message);
     } finally {
       setLoader(false);

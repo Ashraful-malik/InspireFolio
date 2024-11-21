@@ -1,6 +1,7 @@
 "use client";
+
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import {
   useAuth,
   loginUser,
@@ -56,7 +57,6 @@ function Login() {
     if (reason === "auth-required") {
       setShowBanner(true); // Show the banner if the reason is 'auth-required'
     }
-    console.log(reason);
 
     if (user) {
       router.push("/");
@@ -122,5 +122,13 @@ function Login() {
     </>
   );
 }
+export default function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Login />
+    </Suspense>
+  );
+}
 
-export default Login;
+// Exporting the Login component wrapped in Suspense
+// export default Login;
