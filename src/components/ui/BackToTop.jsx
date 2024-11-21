@@ -4,7 +4,7 @@ import React from "react";
 function BackToTop() {
   return (
     <div className="">
-      <div className="fixed bottom-4 right-4">
+      <div className="fixed bottom-4 right-4 z-30">
         <Link
           className="w-12 h-12 bg-black
          dark:bg-dark-overlay border dark:border-dark-border dark:text-dark-accent rounded-full

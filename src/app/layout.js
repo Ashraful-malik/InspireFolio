@@ -2,7 +2,7 @@ import "./globals.css";
 import { AuthProvider } from "../context/authContext";
 import { Inter } from "next/font/google";
 import RenderNavbar from "../components/RenderNavbar";
-
+import Footer from "../components/Footer";
 export const metadata = {
   title: "InspireFolio",
   description:
@@ -49,6 +49,7 @@ export default function RootLayout({ children }) {
         <body className="bg-white dark:bg-dark-bg dark:text-dark-textPrimary">
           <RenderNavbar />
           <main>{children}</main>
+          <Footer />
         </body>
       </html>
     </AuthProvider>
