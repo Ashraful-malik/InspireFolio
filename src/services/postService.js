@@ -56,7 +56,11 @@ export const getUnapprovedPosts = async () => {
 
 export const getApprovePost = async (cursor = null, limit = 10) => {
   try {
-    const queries = [Query.equal("approved", true), Query.limit(limit)];
+    const queries = [
+      Query.equal("approved", true),
+      Query.orderDesc("createdAt"),
+      Query.limit(limit),
+    ];
 
     // If a cursor is provided, add cursorAfter for pagination
     if (cursor) {
