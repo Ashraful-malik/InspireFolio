@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
   // const pathname = usePathname();
   return (
     <AuthProvider>
-      <html lang="en" className={`${inter.variable} dark `}>
+      <html lang="en" className={`${inter.variable} dark scroll-smooth`}>
         <body className="bg-white dark:bg-dark-bg dark:text-dark-textPrimary">
           <RenderNavbar />
           <main>{children}</main>

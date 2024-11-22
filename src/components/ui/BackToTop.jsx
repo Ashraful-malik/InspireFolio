@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-function BackToTop() {
+function BackToTop({ link }) {
   return (
     <div className="">
       <div className="fixed bottom-4 right-4 z-30">
@@ -9,7 +9,7 @@ function BackToTop() {
           className="w-12 h-12 bg-black
          dark:bg-dark-overlay border dark:border-dark-border dark:text-dark-accent rounded-full
            text-center flex items-center justify-center"
-          href={"#"}
+          href={`#${link}`}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

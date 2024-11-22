@@ -14,8 +14,8 @@ function page() {
       <GoogleAnalytics gaId="G-NZHSLP5K8Q" />
       <div>
         <Container>
-          <BackToTop />
-          <div className="mt-12">
+          <BackToTop link="inspiration" />
+          <div className="my-12">
             <PortfolioCard />
           </div>
         </Container>

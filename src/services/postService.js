@@ -54,7 +54,7 @@ export const getUnapprovedPosts = async () => {
   }
 };
 
-export const getApprovePost = async (cursor = null, limit = 10) => {
+export const getApprovePost = async (cursor = null, limit = 20) => {
   try {
     const queries = [
       Query.equal("approved", true),

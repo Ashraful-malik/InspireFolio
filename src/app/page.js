@@ -8,7 +8,7 @@ const Home = () => {
   return (
     <>
       <Container>
-        <BackToTop />
+        <BackToTop link="/" />
         <HeroSection />
         <div className="mb-9">
           <PortfolioCard />

@@ -26,7 +26,7 @@ function PortfolioCard() {
         cursor === null ? newPosts : [...prev, ...newPosts]
       ); // Avoid duplication
       setCursor(newPosts[newPosts.length - 1]?.$id || null);
-      setHasMore(newPosts.length === 10);
+      setHasMore(newPosts.length === 20);
     } catch (error) {
       setError("Failed to load portfolio items.");
       console.error("Fetch error:", error);
@@ -70,16 +70,16 @@ function PortfolioCard() {
             />
           </div>
         ))}
-        <div className="flex  item-center justify-center ">
-          {hasMore && !isLoading && (
-            <Button
-              label="Load more"
-              onClick={fetchPortfolios}
-              type="button"
-              style="primary"
-            />
-          )}
-        </div>
+      </div>
+      <div className="flex  item-center justify-center mt-8 ">
+        {hasMore && !isLoading && (
+          <Button
+            label="Load more"
+            onClick={fetchPortfolios}
+            type="button"
+            style="dark"
+          />
+        )}
       </div>
     </>
   );
